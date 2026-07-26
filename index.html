@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta name="theme-color" content="#080b12">
+
+    <title>Stars Market</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Telegram Mini App -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- ==========================================
+         TOP HEADER
+    =========================================== -->
+
+    <header class="top-header">
+
+        <div class="balance-wrapper">
+
+            <div class="balance-box">
+
+                <span class="balance-label">
+                    Balans
+                </span>
+
+                <div class="balance-value">
+                    <span id="balance">0</span>
+                    <span class="currency">so'm</span>
+                </div>
+
+            </div>
+
+            <button
+                id="add-balance-btn"
+                class="add-balance-btn"
+                type="button"
+                aria-label="Balansni to'ldirish"
+            >
+                +
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==========================================
+         MAIN
+    =========================================== -->
+
+    <main id="page-content">
+
+
+        <!-- ======================================
+             ASOSIY / STARS
+        ======================================= -->
+
+        <section
+            id="home-page"
+            class="page active"
+        >
+
+            <div class="stars-hero">
+
+                <div class="stars-glow"></div>
+
+                <div class="stars-icon">
+                    ⭐
+                </div>
+
+                <span class="hero-label">
+                    TELEGRAM STARS
+                </span>
+
+                <h1>
+                    Stars sotib oling
+                </h1>
+
+                <p>
+                    Telegram Stars'ni tez va qulay
+                    tarzda xarid qiling.
+                </p>
+
+            </div>
+
+
+            <!-- STARS BUY CARD -->
+
+            <div class="stars-buy-card">
+
+                <div class="card-heading">
+
+                    <div>
+                        <h2>
+                            ⭐ Stars
+                        </h2>
+
+                        <p>
+                            Qancha Stars kerak?
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- USERNAME -->
+
+                <div class="field-label">
+                    Kimga yuboriladi?
+                </div>
+
+                <div class="username-box">
+
+                    <span class="username-icon">
+                        @
+                    </span>
+
+                    <input
+                        id="stars-username"
+                        type="text"
+                        placeholder="username yoki Telegram ID"
+                        autocomplete="off"
+                    >
+
+                    <button
+                        id="self-user-btn"
+                        type="button"
+                        class="self-user-btn"
+                    >
+                        O'zimga
+                    </button>
+
+                </div>
+
+
+                <!-- STARS AMOUNT -->
+
+                <div class="field-label">
+                    Stars miqdori
+                </div>
+
+                <div class="stars-input-box">
+
+                    <span class="star-small">
+                        ⭐
+                    </span>
+
+                    <input
+                        id="stars-amount"
+                        type="number"
+                        min="1"
+                        placeholder="Masalan: 100"
+                    >
+
+                    <span class="stars-text">
+                        Stars
+                    </span>
+
+                </div>
+
+
+                <!-- QUICK AMOUNTS -->
+
+                <div class="quick-stars">
+
+                    <button
+                        type="button"
+                        data-stars="50"
+                    >
+                        50 ⭐
+                    </button>
+
+                    <button
+                        type="button"
+                        data-stars="100"
+                    >
+                        100 ⭐
+                    </button>
+
+                    <button
+                        type="button"
+                        data-stars="250"
+                    >
+                        250 ⭐
+                    </button>
+
+                    <button
+                        type="button"
+                        data-stars="500"
+                    >
+                        500 ⭐
+                    </button>
+
+                    <button
+                        type="button"
+                        data-stars="1000"
+                    >
+                        1000 ⭐
+                    </button>
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="order-summary">
+
+                    <span>
+                        To'lov:
+                    </span>
+
+                    <strong>
+                        <span id="stars-price">0</span> so'm
+                    </strong>
+
+                </div>
+
+
+                <button
+                    id="buy-stars-btn"
+                    class="primary-button"
+                    type="button"
+                >
+                    ⭐ Stars sotib olish
+                </button>
+
+            </div>
+
+
+            <!-- FEATURES -->
+
+            <div class="features-grid">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ⚡
+                    </div>
+
+                    <strong>
+                        Tezkor
+                    </strong>
+
+                    <span>
+                        Xaridni tez amalga oshiring
+                    </span>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🔒
+                    </div>
+
+                    <strong>
+                        Xavfsiz
+                    </strong>
+
+                    <span>
+                        Balans orqali qulay to'lov
+                    </span>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        💬
+                    </div>
+
+                    <strong>
+                        Support
+                    </strong>
+
+                    <span>
+                        Muammo bo'lsa yordam beramiz
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+             PREMIUM
+        ======================================= -->
+
+        <section
+            id="premium-page"
+            class="page"
+        >
+
+            <div class="page-heading">
+
+                <div class="heading-icon premium-icon">
+                    ⭐
+                </div>
+
+                <div>
+                    <h2>
+                        Telegram Premium
+                    </h2>
+
+                    <p>
+                        Premium tarifini tanlang
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="premium-info">
+
+                <span>
+                    ✨
+                </span>
+
+                <div>
+                    <strong>
+                        Premium imkoniyatlari
+                    </strong>
+
+                    <p>
+                        Telegram'dan yanada qulay
+                        foydalaning.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- PREMIUM 3 -->
+
+            <div class="premium-card">
+
+                <div class="premium-card-top">
+
+                    <div class="premium-duration">
+                        3
+                    </div>
+
+                    <div class="premium-card-title">
+
+                        <h3>
+                            Premium 3 oy
+                        </h3>
+
+                        <span>
+                            3 oylik obuna
+                        </span>
+
+                    </div>
+
+                    <div class="premium-badge">
+                        Ommabop
+                    </div>
+
+                </div>
+
+
+                <div class="premium-bottom">
+
+                    <div class="product-price">
+                        <strong>
+                            0
+                        </strong>
+                        <span>
+                            so'm
+                        </span>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="buy-product-btn"
+                        data-product="premium_3"
+                    >
+                        Sotib olish
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- PREMIUM 6 -->
+
+            <div class="premium-card">
+
+                <div class="premium-card-top">
+
+                    <div class="premium-duration">
+                        6
+                    </div>
+
+                    <div class="premium-card-title">
+
+                        <h3>
+                            Premium 6 oy
+                        </h3>
+
+                        <span>
+                            6 oylik obuna
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="premium-bottom">
+
+                    <div class="product-price">
+                        <strong>
+                            0
+                        </strong>
+                        <span>
+                            so'm
+                        </span>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="buy-product-btn"
+                        data-product="premium_6"
+                    >
+                        Sotib olish
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- PREMIUM 12 -->
+
+            <div class="premium-card premium-featured">
+
+                <div class="premium-card-top">
+
+                    <div class="premium-duration">
+                        12
+                    </div>
+
+                    <div class="premium-card-title">
+
+                        <h3>
+                            Premium 12 oy
+                        </h3>
+
+                        <span>
+                            12 oylik obuna
+                        </span>
+
+                    </div>
+
+                    <div class="premium-badge">
+                        Eng yaxshi
+                    </div>
+
+                </div>
+
+
+                <div class="premium-bottom">
+
+                    <div class="product-price">
+                        <strong>
+                            0
+                        </strong>
+                        <span>
+                            so'm
+                        </span>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="buy-product-btn"
+                        data-product="premium_12"
+                    >
+                        Sotib olish
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+             NFT MARKET
+        ======================================= -->
+
+        <section
+            id="nft-page"
+            class="page"
+        >
+
+            <div class="page-heading">
+
+                <div class="heading-icon nft-icon">
+                    🎁
+                </div>
+
+                <div>
+                    <h2>
+                        Gift & NFT Market
+                    </h2>
+
+                    <p>
+                        Maxsus Telegram Giftlar
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- NFT FILTER -->
+
+            <div class="market-tabs">
+
+                <button
+                    class="market-tab active"
+                    data-filter="all"
+                    type="button"
+                >
+                    Barchasi
+                </button>
+
+                <button
+                    class="market-tab"
+                    data-filter="gift"
+                    type="button"
+                >
+                    🎁 Gift
+                </button>
+
+                <button
+                    class="market-tab"
+                    data-filter="nft"
+                    type="button"
+                >
+                    💎 NFT
+                </button>
+
+            </div>
+
+
+            <!-- NFT PRODUCTS -->
+
+            <div
+                id="nft-products"
+                class="nft-grid"
+            >
+
+                <!-- DEMO PRODUCT -->
+
+                <div
+                    class="nft-card"
+                    data-category="gift"
+                >
+
+                    <div class="nft-image">
+                        🎁
+                    </div>
+
+                    <div class="nft-card-body">
+
+                        <span class="nft-type">
+                            Telegram Gift
+                        </span>
+
+                        <h3>
+                            Maxsus Gift
+                        </h3>
+
+                        <div class="nft-price">
+                            0 so'm
+                        </div>
+
+                        <button
+                            type="button"
+                            class="buy-nft-btn"
+                        >
+                            Sotib olish
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="nft-card"
+                    data-category="nft"
+                >
+
+                    <div class="nft-image">
+                        💎
+                    </div>
+
+                    <div class="nft-card-body">
+
+                        <span class="nft-type">
+                            NFT
+                        </span>
+
+                        <h3>
+                            Maxsus kolleksiya
+                        </h3>
+
+                        <div class="nft-price">
+                            0 so'm
+                        </div>
+
+                        <button
+                            type="button"
+                            class="buy-nft-btn"
+                        >
+                            Sotib olish
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="market-empty-note">
+
+                <span>
+                    💡
+                </span>
+
+                <p>
+                    Yangi Gift va NFTlar admin tomonidan
+                    qo'shilganda shu yerda paydo bo'ladi.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+             BOT HAQIDA
+        ======================================= -->
+
+        <section
+            id="about-page"
+            class="page"
+        >
+
+            <div class="about-header">
+
+                <div class="about-logo">
+                    ⭐
+                </div>
+
+                <h2>
+                    Stars Market
+                </h2>
+
+                <p>
+                    Telegram mahsulotlari uchun
+                    qulay savdo platformasi
+                </p>
+
+            </div>
+
+
+            <div class="about-stats">
+
+                <div>
+                    <strong>
+                        ⚡
+                    </strong>
+
+                    <span>
+                        Tezkor
+                    </span>
+                </div>
+
+                <div>
+                    <strong>
+                        🔒
+                    </strong>
+
+                    <span>
+                        Xavfsiz
+                    </span>
+                </div>
+
+                <div>
+                    <strong>
+                        💬
+                    </strong>
+
+                    <span>
+                        Support
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="about-menu">
+
+                <button
+                    type="button"
+                    class="about-menu-item"
+                    id="support-btn"
+                >
+
+                    <span class="menu-icon">
+                        💬
+                    </span>
+
+                    <div>
+                        <strong>
+                            Support
+                        </strong>
+
+                        <small>
+                            Yordam kerakmi?
+                        </small>
+                    </div>
+
+                    <span class="arrow">
+                        ›
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="about-menu-item"
+                    id="rules-btn"
+                >
+
+                    <span class="menu-icon">
+                        📋
+                    </span>
+
+                    <div>
+                        <strong>
+                            Foydalanish qoidalari
+                        </strong>
+
+                        <small>
+                            Xarid qilishdan oldin tanishing
+                        </small>
+                    </div>
+
+                    <span class="arrow">
+                        ›
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="about-menu-item"
+                    id="reviews-btn"
+                >
+
+                    <span class="menu-icon">
+                        ⭐
+                    </span>
+
+                    <div>
+                        <strong>
+                            Foydalanuvchilar fikri
+                        </strong>
+
+                        <small>
+                            Biz haqimizdagi fikrlar
+                        </small>
+                    </div>
+
+                    <span class="arrow">
+                        ›
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <div class="version">
+                Stars Market • v1.0
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ==========================================
+         BOTTOM NAVIGATION
+    =========================================== -->
+
+    <nav class="bottom-nav">
+
+        <button
+            class="nav-item active"
+            data-page="home-page"
+            type="button"
+        >
+
+            <span class="nav-icon">
+                🏠
+            </span>
+
+            <small>
+                Asosiy
+            </small>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            data-page="premium-page"
+            type="button"
+        >
+
+            <span class="nav-icon">
+                ⭐
+            </span>
+
+            <small>
+                Premium
+            </small>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            data-page="nft-page"
+            type="button"
+        >
+
+            <span class="nav-icon">
+                🎁
+            </span>
+
+            <small>
+                NFT
+            </small>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            data-page="about-page"
+            type="button"
+        >
+
+            <span class="nav-icon">
+                ⋯
+            </span>
+
+            <small>
+                Bot haqida
+            </small>
+
+        </button>
+
+    </nav>
+
+
+    <!-- ==========================================
+         BALANCE MODAL
+    =========================================== -->
+
+    <div
+        id="balance-modal"
+        class="modal hidden"
+    >
+
+        <div class="modal-overlay"></div>
+
+        <div class="modal-content">
+
+            <button
+                id="close-balance-modal"
+                class="modal-close"
+                type="button"
+            >
+                ×
+            </button>
+
+            <div class="modal-icon">
+                💳
+            </div>
+
+            <h2>
+                Balansni to'ldirish
+            </h2>
+
+            <p>
+                Balansingizni qanchaga
+                to'ldirmoqchisiz?
+            </p>
+
+            <div class="amount-input-box">
+
+                <input
+                    id="deposit-amount"
+                    type="number"
+                    min="1000"
+                    placeholder="Masalan: 50 000"
+                >
+
+                <span>
+                    so'm
+                </span>
+
+            </div>
+
+            <button
+                id="continue-deposit-btn"
+                class="primary-button"
+                type="button"
+            >
+                Davom etish
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         PRODUCT MODAL
+    =========================================== -->
+
+    <div
+        id="product-modal"
+        class="modal hidden"
+    >
+
+        <div class="modal-overlay"></div>
+
+        <div class="modal-content">
+
+            <button
+                id="close-product-modal"
+                class="modal-close"
+                type="button"
+            >
+                ×
+            </button>
+
+            <div
+                id="product-modal-icon"
+                class="modal-icon"
+            >
+                ⭐
+            </div>
+
+            <h2 id="product-modal-title">
+                Xaridni tasdiqlash
+            </h2>
+
+            <p id="product-modal-text">
+                Mahsulotni xarid qilishni
+                tasdiqlaysizmi?
+            </p>
+
+            <button
+                id="confirm-product-btn"
+                class="primary-button"
+                type="button"
+            >
+                Tasdiqlash
+            </button>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
