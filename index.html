@@ -816,6 +816,98 @@
 
         </section>
 
+
+
+        <!-- ======================================
+             ADMIN PANEL
+        ======================================= -->
+
+        <section
+            id="admin-page"
+            class="page"
+        >
+
+            <div class="admin-header">
+
+                <div class="admin-header-icon">
+                    🔐
+                </div>
+
+                <div>
+                    <h2>Admin Panel</h2>
+                    <p>Mahsulot narxlarini boshqarish</p>
+                </div>
+
+            </div>
+
+
+            <div class="admin-info-banner">
+                <span>⚠️</span>
+                <p>Bu sahifa faqat adminlar uchun. O'zgarishlar darhol kuchga kiradi.</p>
+            </div>
+
+
+            <!-- PRODUCT TYPE TABS -->
+
+            <div class="admin-tabs">
+
+                <button
+                    class="admin-tab active"
+                    data-admin-filter="all"
+                    type="button"
+                >
+                    Barchasi
+                </button>
+
+                <button
+                    class="admin-tab"
+                    data-admin-filter="stars"
+                    type="button"
+                >
+                    ⭐ Stars
+                </button>
+
+                <button
+                    class="admin-tab"
+                    data-admin-filter="premium"
+                    type="button"
+                >
+                    💎 Premium
+                </button>
+
+                <button
+                    class="admin-tab"
+                    data-admin-filter="gift"
+                    type="button"
+                >
+                    🎁 Gift
+                </button>
+
+                <button
+                    class="admin-tab"
+                    data-admin-filter="nft"
+                    type="button"
+                >
+                    🖼 NFT
+                </button>
+
+            </div>
+
+
+            <!-- PRODUCTS LIST -->
+
+            <div id="admin-products-list" class="admin-products-list">
+
+                <div class="admin-loading">
+                    <div class="spinner"></div>
+                    <p>Mahsulotlar yuklanmoqda...</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
     </main>
 
 
@@ -889,6 +981,25 @@
 
             <small>
                 Bot haqida
+            </small>
+
+        </button>
+
+
+        <button
+            class="nav-item admin-nav-item"
+            data-page="admin-page"
+            type="button"
+            id="admin-nav-btn"
+            style="display:none"
+        >
+
+            <span class="nav-icon">
+                🔐
+            </span>
+
+            <small>
+                Admin
             </small>
 
         </button>
@@ -1002,6 +1113,66 @@
                 type="button"
             >
                 Tasdiqlash
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==========================================
+         ADMIN PRICE EDIT MODAL
+    =========================================== -->
+
+    <div
+        id="admin-price-modal"
+        class="modal hidden"
+    >
+
+        <div class="modal-overlay" id="admin-modal-overlay"></div>
+
+        <div class="modal-content">
+
+            <button
+                id="close-admin-price-modal"
+                class="modal-close"
+                type="button"
+            >
+                ×
+            </button>
+
+            <div class="modal-icon">
+                ✏️
+            </div>
+
+            <h2 id="admin-modal-product-name">
+                Narxni o'zgartirish
+            </h2>
+
+            <p id="admin-modal-current-price"
+               style="color: var(--text-secondary); margin-bottom: 1rem;">
+            </p>
+
+            <div class="amount-input-box">
+
+                <input
+                    id="admin-new-price-input"
+                    type="number"
+                    min="0"
+                    placeholder="Yangi narx (so'm)"
+                >
+
+                <span>so'm</span>
+
+            </div>
+
+            <button
+                id="admin-save-price-btn"
+                class="primary-button"
+                type="button"
+            >
+                💾 Saqlash
             </button>
 
         </div>
