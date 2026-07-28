@@ -16,6 +16,7 @@ if (tg) {
 
 const state = {
     balance: 0,
+    isAdmin: false,
     user: tg?.initDataUnsafe?.user || null
 };
 
@@ -29,6 +30,19 @@ const navItems = document.querySelectorAll(".nav-item");
 
 const balanceElement = document.getElementById("balance");
 const addBalanceButton = document.getElementById("add-balance-btn");
+const adminPage = document.getElementById("admin-page");
+const adminNavButton = document.getElementById("admin-nav-btn");
+const adminFilterButtons = document.querySelectorAll(".admin-tab");
+const adminProductsList = document.getElementById("admin-products-list");
+const adminPriceModal = document.getElementById("admin-price-modal");
+const adminModalProductName = document.getElementById("admin-modal-product-name");
+const adminModalCurrentPrice = document.getElementById("admin-modal-current-price");
+const adminNewPriceInput = document.getElementById("admin-new-price-input");
+const adminSavePriceBtn = document.getElementById("admin-save-price-btn");
+
+const API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://127.0.0.1:8000"
+    : "";
 
 
 // ==========================================
@@ -45,10 +59,6 @@ async function loadBalance() {
             console.log("Telegram user topilmadi.");
             return;
         }
-
-        const API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-            ? "http://127.0.0.1:8000"
-            : "";
 
         const response = await fetch(
             `${API_URL}/api/balance`,
@@ -100,6 +110,10 @@ function updateBalanceDisplay() {
 
 function showPage(pageId) {
 
+    if (pageId === "admin-page" && !state.isAdmin) {
+        pageId = "home-page";
+    }
+
     pages.forEach(page => {
         page.classList.toggle(
             "active",
@@ -119,6 +133,277 @@ function showPage(pageId) {
         behavior: "smooth"
     });
 }
+
+
+async function checkAdminAccess() {
+    const user = getUserInfo();
+
+    if (!user || !user.id) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/api/admin/check`, {
+            method: "GET",
+            headers: {
+                "X-User-Id": user.id
+            }
+        });
+
+        if (!response.ok) {
+            state.isAdmin = false;
+            if (adminNavButton) {
+                adminNavButton.style.display = "none";
+            }
+            return;
+        }
+
+        state.isAdmin = true;
+
+        if (adminNavButton) {
+            adminNavButton.style.display = "inline-flex";
+        }
+
+        await loadAdminProducts();
+    } catch (error) {
+        console.error("Admin tekshiruvida xato:", error);
+        state.isAdmin = false;
+        if (adminNavButton) {
+            adminNavButton.style.display = "none";
+        }
+    }
+}
+
+
+async function loadAdminProducts(filter = "all") {
+    if (!state.isAdmin) {
+        return;
+    }
+
+    if (!adminProductsList) {
+        return;
+    }
+
+    adminProductsList.innerHTML = `
+        <div class="admin-loading">
+            <div class="spinner"></div>
+            <p>Mahsulotlar yuklanmoqda...</p>
+        </div>
+    `;
+
+    try {
+        const user = getUserInfo();
+        if (!user || !user.id) {
+            throw new Error("Foydalanuvchi ma'lumotlari yo'q");
+        }
+
+        const response = await fetch(`${API_URL}/api/admin/products`, {
+            method: "GET",
+            headers: {
+                "X-User-Id": user.id
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Admin mahsulotlari API xatosi");
+        }
+
+        const products = await response.json();
+        const filteredProducts = filter === "all"
+            ? products
+            : products.filter(item => item.product_type === filter);
+
+        if (!filteredProducts.length) {
+            adminProductsList.innerHTML = `
+                <div class="admin-empty-note">
+                    <p>Hech qanday mahsulot topilmadi.</p>
+                </div>
+            `;
+            return;
+        }
+
+        adminProductsList.innerHTML = filteredProducts.map(product => {
+            const statusLabel = product.is_active ? "Faol" : "O'chirilgan";
+            const statusClass = product.is_active ? "admin-badge-active" : "admin-badge-inactive";
+            return `
+                <div class="admin-product-card" data-product-id="${product.id}" data-product-type="${product.product_type}">
+                    <div class="admin-product-meta">
+                        <strong>${product.name}</strong>
+                        <span>${product.product_type.toUpperCase()}</span>
+                    </div>
+                    <div class="admin-product-info">
+                        <span>${new Intl.NumberFormat("uz-UZ").format(product.price)} so'm</span>
+                        <span>${product.quantity || 0} dona</span>
+                        <span class="${statusClass}">${statusLabel}</span>
+                    </div>
+                    <div class="admin-product-actions">
+                        <button type="button" class="admin-edit-price-btn" data-product-id="${product.id}" data-product-name="${product.name}" data-product-price="${product.price}">Narxni o'zgartirish</button>
+                        <button type="button" class="admin-toggle-active-btn" data-product-id="${product.id}" data-product-active="${product.is_active}">${product.is_active ? "O'chirish" : "Yoqish"}</button>
+                    </div>
+                </div>
+            `;
+        }).join("");
+
+        bindAdminProductActions();
+    } catch (error) {
+        adminProductsList.innerHTML = `
+            <div class="admin-error-note">
+                <p>Admin bo'limini yuklashda xatolik yuz berdi.</p>
+            </div>
+        `;
+        console.error(error);
+    }
+}
+
+
+function bindAdminProductActions() {
+    const editButtons = document.querySelectorAll(".admin-edit-price-btn");
+    const toggleButtons = document.querySelectorAll(".admin-toggle-active-btn");
+
+    editButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const productId = Number(button.dataset.productId);
+            const productName = button.dataset.productName;
+            const productPrice = Number(button.dataset.productPrice);
+            openAdminPriceModal({ productId, productName, productPrice });
+        });
+    });
+
+    toggleButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const productId = Number(button.dataset.productId);
+            const isActive = button.dataset.productActive === "true";
+            toggleAdminProduct(productId, !isActive);
+        });
+    });
+}
+
+
+function openAdminPriceModal(product) {
+    if (!adminPriceModal) return;
+
+    adminModalProductName.textContent = `Narxni o'zgartirish — ${product.productName}`;
+    adminModalCurrentPrice.textContent = `Joriy narx: ${new Intl.NumberFormat("uz-UZ").format(product.productPrice)} so'm`;
+    adminNewPriceInput.value = product.productPrice;
+    adminPriceModal.dataset.productId = product.productId;
+    adminPriceModal.classList.add("show");
+    document.body.classList.add("modal-open");
+}
+
+
+function closeAdminPriceModal() {
+    if (!adminPriceModal) return;
+    adminPriceModal.classList.remove("show");
+    document.body.classList.remove("modal-open");
+}
+
+
+async function saveAdminPrice() {
+    const user = getUserInfo();
+    if (!user || !user.id) {
+        return;
+    }
+
+    const productId = Number(adminPriceModal.dataset.productId);
+    const newPrice = Number(adminNewPriceInput.value);
+
+    if (isNaN(productId) || isNaN(newPrice) || newPrice < 0) {
+        alert("Iltimos, to'g'ri narx kiriting.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/api/admin/products/update-price`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                new_price: newPrice,
+                user_id: user.id
+            })
+        });
+
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.detail || "Narxni saqlashda xatolik");
+        }
+
+        closeAdminPriceModal();
+        await loadAdminProducts();
+    } catch (error) {
+        console.error("Narxni yangilash xatosi:", error);
+        alert("Narxni yangilashda xatolik yuz berdi.");
+    }
+}
+
+
+async function toggleAdminProduct(productId, isActive) {
+    const user = getUserInfo();
+    if (!user || !user.id) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/api/admin/products/toggle`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                is_active: isActive,
+                user_id: user.id
+            })
+        });
+
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.detail || "Produktni yangilashda xatolik");
+        }
+
+        await loadAdminProducts();
+    } catch (error) {
+        console.error("Mahsulot holatini o'zgartirish xatosi:", error);
+        alert("Mahsulot holatini o'zgartirishda xatolik yuz berdi.");
+    }
+}
+
+
+function setupAdminTabFilters() {
+    adminFilterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            adminFilterButtons.forEach(item => item.classList.remove("active"));
+            button.classList.add("active");
+            const filter = button.dataset.adminFilter || "all";
+            loadAdminProducts(filter);
+        });
+    });
+}
+
+
+if (adminNavButton) {
+    adminNavButton.addEventListener("click", () => {
+        showPage("admin-page");
+        loadAdminProducts();
+    });
+}
+
+
+const adminModalClose = document.getElementById("close-admin-price-modal");
+const adminModalOverlay = document.getElementById("admin-modal-overlay");
+if (adminModalClose) {
+    adminModalClose.addEventListener("click", closeAdminPriceModal);
+}
+if (adminModalOverlay) {
+    adminModalOverlay.addEventListener("click", closeAdminPriceModal);
+}
+if (adminSavePriceBtn) {
+    adminSavePriceBtn.addEventListener("click", saveAdminPrice);
+}
+
+setupAdminTabFilters();
 
 
 // ==========================================
@@ -389,10 +674,6 @@ function setupBalanceModal() {
                 paidConfirmBtn.textContent = "Yuborilmoqda...";
 
                 const user = getUserInfo();
-                const API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-                    ? "http://127.0.0.1:8000"
-                    : "";
-
                 if (user && user.id) {
                     try {
                         await fetch(`${API_URL}/api/deposit/confirm`, {
@@ -531,7 +812,8 @@ function getUserInfo() {
 // ==========================================
 
 updateBalanceDisplay();
-loadBalance()
+loadBalance();
+checkAdminAccess();
 
 showPage("home-page");
 
@@ -556,10 +838,6 @@ async function buyProduct(productType, productName, amount, recipientUsername) {
         }
         return;
     }
-
-    const API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-        ? "http://127.0.0.1:8000"
-        : "";
 
     try {
         const response = await fetch(`${API_URL}/api/orders/create`, {
