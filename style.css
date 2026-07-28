@@ -808,3 +808,147 @@ body {
         font-size: 9px;
     }
 }
+
+/* =========================================
+   VIBRANT & COLORED BUTTON STYLES
+   Rasmga mos: ko'k grid, yashil, qizil
+========================================= */
+
+/* --- Asosiy tugma (ko'k-binafsha gradient) --- */
+.primary-button {
+    background: linear-gradient(135deg, #6d5dfc, #4facfe) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: 14px !important;
+    box-shadow: 0 6px 20px rgba(109, 93, 252, 0.35) !important;
+    transition: all 0.2s ease !important;
+}
+
+.primary-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.45) !important;
+}
+
+.primary-button:active {
+    transform: scale(0.96) !important;
+}
+
+/* --- Balans qo'shish tugmasi --- */
+.add-balance-btn {
+    background: linear-gradient(135deg, #00c6ff, #0072ff) !important;
+    box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4) !important;
+    border: none !important;
+}
+
+/* --- Ko'k grid tugmalar (rasmga o'xshash: amount-btn, quick-stars button) --- */
+.amount-btn,
+.quick-stars button,
+[data-stars] {
+    background: linear-gradient(145deg, #2c6b8a, #3a8ab8) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    border: 1px solid rgba(80, 160, 210, 0.35) !important;
+    border-radius: 10px !important;
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    transition: all 0.15s ease !important;
+    cursor: pointer !important;
+    padding: 12px 8px !important;
+    text-align: center !important;
+    font-size: 13px !important;
+}
+
+.amount-btn:hover,
+.quick-stars button:hover,
+[data-stars]:hover {
+    background: linear-gradient(145deg, #3a82a8, #4aa3d4) !important;
+    transform: translateY(-1px) !important;
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+.amount-btn:active,
+.quick-stars button:active,
+[data-stars]:active {
+    transform: scale(0.95) !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+.amount-btn.selected {
+    background: linear-gradient(145deg, #1a5272, #2475a0) !important;
+    border-color: rgba(100, 180, 230, 0.6) !important;
+    box-shadow:
+        0 0 0 2px rgba(74, 163, 212, 0.5),
+        0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* --- Yashil tugma (Davom etish, Boshqa miqdor) --- */
+.continue-payment,
+.btn-green {
+    background: linear-gradient(135deg, #3a7a4a, #4e9e60) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    transition: all 0.2s ease !important;
+}
+
+.continue-payment:hover,
+.btn-green:hover {
+    background: linear-gradient(135deg, #4a8f5c, #5eb572) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35) !important;
+}
+
+.continue-payment:active,
+.btn-green:active {
+    transform: scale(0.97) !important;
+}
+
+/* --- Qizil tugma (Orqaga, Bekor qilish) --- */
+.btn-red,
+.back-btn,
+button[data-action="back"] {
+    background: linear-gradient(135deg, #7a2a2a, #9e3e3e) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-red:hover,
+.back-btn:hover {
+    background: linear-gradient(135deg, #8f3535, #b54848) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* --- Mahsulot sotib olish tugmasi --- */
+.buy-product-btn {
+    background: linear-gradient(135deg, #2c6b8a, #3a8ab8) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    border: 1px solid rgba(80, 160, 210, 0.35) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25) !important;
+    transition: all 0.15s ease !important;
+}
+
+.buy-product-btn:hover {
+    background: linear-gradient(135deg, #3a82a8, #4aa3d4) !important;
+    transform: translateY(-1px) !important;
+}
+
+.buy-product-btn:active {
+    transform: scale(0.95) !important;
+}
+
